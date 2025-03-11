@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plan: one
+  min_usage: 1
+  max_usage: 1
+  unit_rate: 9.99
+
+two:
+  plan: two
+  min_usage: 1
+  max_usage: 1
+  unit_rate: 9.99
