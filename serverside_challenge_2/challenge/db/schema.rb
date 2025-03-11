@@ -14,24 +14,24 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_11_091629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "energy_charges_basic_rates", comment: "プラン毎の基本料金を格納する", force: :cascade do |t|
+  create_table "electricity_charges_basic_rates", comment: "プラン毎の電気基本料金を格納する", force: :cascade do |t|
     t.bigint "plan_id", null: false
     t.integer "ampere", null: false, comment: "契約アンペア数(A)"
     t.decimal "basic_rate", null: false, comment: "基本料金(円)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["plan_id", "ampere"], name: "index_energy_charges_basic_rates_on_plan_id_and_ampere", unique: true
-    t.index ["plan_id"], name: "index_energy_charges_basic_rates_on_plan_id"
+    t.index ["plan_id", "ampere"], name: "index_electricity_charges_basic_rates_on_plan_id_and_ampere", unique: true
+    t.index ["plan_id"], name: "index_electricity_charges_basic_rates_on_plan_id"
   end
 
-  create_table "energy_charges_usage_rates", comment: "プラン毎の従量料金を格納する", force: :cascade do |t|
+  create_table "electricity_charges_usage_rates", comment: "プラン毎の電気従量料金を格納する", force: :cascade do |t|
     t.bigint "plan_id", null: false
     t.integer "min_usage", null: false, comment: "電気使用量(kWh)の下限値"
     t.integer "max_usage", comment: "電気使用量(kWh)の上限値"
     t.decimal "unit_rate", null: false, comment: "従量料金単価(円/kWh)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["plan_id"], name: "index_energy_charges_usage_rates_on_plan_id"
+    t.index ["plan_id"], name: "index_electricity_charges_usage_rates_on_plan_id"
   end
 
   create_table "plans", comment: "各電力会社毎のプランを格納する", force: :cascade do |t|
@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_11_091629) do
     t.index ["name"], name: "index_providers_on_name", unique: true
   end
 
-  add_foreign_key "energy_charges_basic_rates", "plans"
-  add_foreign_key "energy_charges_usage_rates", "plans"
+  add_foreign_key "electricity_charges_basic_rates", "plans"
+  add_foreign_key "electricity_charges_usage_rates", "plans"
   add_foreign_key "plans", "providers"
 end

@@ -1,4 +1,4 @@
-class EnergyChargesBasicRate < ApplicationRecord
+class ElectricityChargesBasicRate < ApplicationRecord
   belongs_to :plan
 
   validates :basic_rate, presence: true

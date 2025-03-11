@@ -1,6 +1,6 @@
-class CreateEnergyChargesUsageRates < ActiveRecord::Migration[7.0]
+class CreateElectricityChargesUsageRates < ActiveRecord::Migration[7.0]
   def change
-    create_table :energy_charges_usage_rates, comment: 'プラン毎の従量料金を格納する' do |t|
+    create_table :electricity_charges_usage_rates, comment: 'プラン毎の電気従量料金を格納する' do |t|
       t.references :plan, null: false, foreign_key: true
       t.integer :min_usage, null: false, comment: '電気使用量(kWh)の下限値'
       t.integer :max_usage, comment: '電気使用量(kWh)の上限値'

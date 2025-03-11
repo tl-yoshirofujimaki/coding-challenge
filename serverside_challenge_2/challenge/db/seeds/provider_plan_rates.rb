@@ -11,7 +11,7 @@ end
 
 def create_basic_rates(plan, rates)
   rates.each do |rate_data|
-    EnergyChargesBasicRate.find_or_create_by!(
+    ElectricityChargesBasicRate.find_or_create_by!(
       plan: plan,
       ampere: rate_data[:ampere]
     ) do |rate|
@@ -22,7 +22,7 @@ end
 
 def create_usage_rates(plan, rates)
   rates.each do |rate_data|
-    EnergyChargesUsageRate.find_or_create_by!(
+    ElectricityChargesUsageRate.find_or_create_by!(
       plan: plan,
       min_usage: rate_data[:min_usage],
       max_usage: rate_data[:max_usage]

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class EnergyChargesUsageRateTest < ActiveSupport::TestCase
+class ElectricityChargesBasicRateTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

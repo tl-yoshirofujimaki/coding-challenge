@@ -1,8 +1,8 @@
-class EnergyPricesController < ApplicationController
+class ElectricityPricesController < ApplicationController
   def index
     ampere = Integer(index_params[:ampere])
     usage = Integer(index_params[:usage])
-    plans = EnergyPriceCalculateService.new(ampere, usage).calc
+    plans = ElectricityPriceCalculateService.new(ampere, usage).calc
     render json: plans
   end
 
