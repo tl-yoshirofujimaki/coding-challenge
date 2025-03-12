@@ -49,8 +49,8 @@ create_provider_and_plans('東京電力エナジーパートナー', [
                               ],
                               usage_rates: [
                                 { min_usage: 0, max_usage: 120, unit_rate: 19.88 },
-                                { min_usage: 121, max_usage: 300, unit_rate: 26.48 },
-                                { min_usage: 301, max_usage: nil, unit_rate: 30.57 }
+                                { min_usage: 120, max_usage: 300, unit_rate: 26.48 },
+                                { min_usage: 300, max_usage: nil, unit_rate: 30.57 }
                               ]
                             },
                             {
@@ -66,8 +66,8 @@ create_provider_and_plans('東京電力エナジーパートナー', [
                               ],
                               usage_rates: [
                                 { min_usage: 0, max_usage: 120, unit_rate: 29.80 },
-                                { min_usage: 121, max_usage: 300, unit_rate: 36.40 },
-                                { min_usage: 301, max_usage: nil, unit_rate: 40.49 }
+                                { min_usage: 120, max_usage: 300, unit_rate: 36.40 },
+                                { min_usage: 300, max_usage: nil, unit_rate: 40.49 }
                               ]
                             }
                           ])
@@ -84,8 +84,8 @@ create_provider_and_plans('東京ガス', [
                               ],
                               usage_rates: [
                                 { min_usage: 0, max_usage: 140, unit_rate: 23.67 },
-                                { min_usage: 141, max_usage: 350, unit_rate: 23.88 },
-                                { min_usage: 351, max_usage: nil, unit_rate: 26.41 }
+                                { min_usage: 140, max_usage: 350, unit_rate: 23.88 },
+                                { min_usage: 350, max_usage: nil, unit_rate: 26.41 }
                               ]
                             }
                           ])

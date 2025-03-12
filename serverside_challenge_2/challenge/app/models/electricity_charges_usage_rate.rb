@@ -35,7 +35,7 @@ class ElectricityChargesUsageRate < ApplicationRecord
     previous_max_usage = nil
 
     usage_ranges.each do |usage_range|
-      if previous_max_usage.present? && usage_range[:min] <= previous_max_usage
+      if previous_max_usage.present? && usage_range[:min] < previous_max_usage
         errors.add(:base, '同一プラン内で使用量の範囲が他のレコードと重複しています')
         break
       end

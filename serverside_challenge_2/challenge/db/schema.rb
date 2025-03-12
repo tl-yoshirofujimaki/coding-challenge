@@ -28,8 +28,8 @@ ActiveRecord::Schema[7.0].define(version: 20_250_311_091_629) do
 
   create_table 'electricity_charges_usage_rates', comment: 'プラン毎の電気従量料金を格納する', force: :cascade do |t|
     t.bigint 'plan_id', null: false
-    t.integer 'min_usage', null: false, comment: '電気使用量(kWh)の下限値'
-    t.integer 'max_usage', comment: '電気使用量(kWh)の上限値'
+    t.integer 'min_usage', null: false, comment: '電気使用量(kWh)の下限値(境界値を含まない)'
+    t.integer 'max_usage', comment: '電気使用量(kWh)の上限値(境界値を含む)'
     t.decimal 'unit_rate', null: false, comment: '従量料金単価(円/kWh)'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
