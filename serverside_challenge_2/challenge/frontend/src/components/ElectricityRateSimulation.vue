@@ -33,14 +33,21 @@ const fetchData = async () => {
 <template>
   <h1>{{ msg }}</h1>
   <label>
-    <div>契約アンペア数(A)</div>
+    <div>
+      契約アンペア数(A)
+      <span v-tooltip="'10 / 15 / 20 / 30 / 40 / 50 / 60 のいずれかを入力してください'" class='info'>ℹ️</span>
+    </div>
     <input
       type='text'
       :value='ampere'
       @input='event => ampere = event.target.value'>
   </label>
+
   <label>
-    <div>1ヶ月の使用量(kWh)</div>
+    <div>
+      1ヶ月の使用量(kWh)
+      <span v-tooltip="'0以上の整数を入力してください'" class='info'>ℹ️</span>
+    </div>
     <input
       type='text'
       :value='usage'
@@ -72,6 +79,9 @@ const fetchData = async () => {
 </template>
 
 <style scoped>
+.info {
+  cursor: pointer;
+}
 .button {
   margin-top: 10px;
 }
