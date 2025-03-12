@@ -25,6 +25,8 @@ class Plan < ApplicationRecord
     basic_price + usage_price
   end
 
+  private
+
   def electricity_charges_usage_rate_from_usage(usage)
     electricity_charges_usage_rates
       .where('min_usage <= :usage AND (max_usage IS NULL OR max_usage >= :usage)', usage: usage)
