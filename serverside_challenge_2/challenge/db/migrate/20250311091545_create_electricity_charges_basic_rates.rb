@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateElectricityChargesBasicRates < ActiveRecord::Migration[7.0]
   def change
     create_table :electricity_charges_basic_rates, comment: 'プラン毎の電気基本料金を格納する' do |t|
@@ -8,6 +10,6 @@ class CreateElectricityChargesBasicRates < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_index :electricity_charges_basic_rates, [:plan_id, :ampere], unique: true
+    add_index :electricity_charges_basic_rates, %i[plan_id ampere], unique: true
   end
 end

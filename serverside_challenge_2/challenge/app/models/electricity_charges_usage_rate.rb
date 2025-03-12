@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ElectricityChargesUsageRate < ApplicationRecord
   belongs_to :plan
 
@@ -21,8 +23,8 @@ class ElectricityChargesUsageRate < ApplicationRecord
       before_max_usage = rates.max_usage
     end
 
-    if electricity_chages_usage_rates.where(max_usage: nil).count > 1
-      errors.add(:base, '同一プラン内で使用量上限がない項目が2つ以上存在します')
-    end
+    return unless electricity_chages_usage_rates.where(max_usage: nil).count > 1
+
+    errors.add(:base, '同一プラン内で使用量上限がない項目が2つ以上存在します')
   end
 end

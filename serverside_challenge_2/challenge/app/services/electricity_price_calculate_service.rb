@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ElectricityPriceCalculateService
   def initialize(ampere, usage)
     @ampere = ampere
@@ -5,7 +7,6 @@ class ElectricityPriceCalculateService
   end
 
   def calc
-    Provider.order(:id).map{|provider| provider.electricity_prices(@ampere, @usage)}.flatten
+    Provider.order(:id).map { |provider| provider.electricity_prices(@ampere, @usage) }.flatten
   end
 end
-
