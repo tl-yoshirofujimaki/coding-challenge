@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  get '/health', to: proc { [200, {}, ['OK']] }
   resources :electricity_prices, only: [:index]
 end

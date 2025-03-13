@@ -11,12 +11,14 @@ const usage = ref('')
 const electricityPrices = ref([])
 const errorMessage = ref('')
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 const fetchData = async () => {
   electricityPrices.value = []
   errorMessage.value = ''
 
   try {
-    const response = await axios.get('http://localhost:3000/electricity_prices', {
+    const response = await axios.get(`${API_BASE_URL}/electricity_prices`, {
       params: {
         ampere: ampere.value,
         usage: usage.value
