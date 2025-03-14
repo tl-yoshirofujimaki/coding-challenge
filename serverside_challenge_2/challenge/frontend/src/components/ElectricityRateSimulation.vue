@@ -7,6 +7,7 @@ defineProps({
 })
 
 const ampere = ref('')
+const ampereOptions = [10, 15, 20, 30, 40, 50, 60]
 const usage = ref('')
 const electricityPrices = ref([])
 const errorMessage = ref('')
@@ -25,7 +26,13 @@ const fetchData = async () => {
       }
     })
 
-    electricityPrices.value = response.data
+    // 最も安い価格かどうかを識別できるようにする
+    const minPrice = [...response.data].sort((a, b) => a.price - b.price)[0].price
+
+    electricityPrices.value = response.data.map(plan => ({
+      ...plan,
+      isCheapest: plan.price === minPrice
+    }))
   } catch (error) {
     errorMessage.value = error.response.data.error
   }
@@ -34,30 +41,36 @@ const fetchData = async () => {
 
 <template>
   <h1>{{ msg }}</h1>
-  <label>
-    <div>
-      契約アンペア数(A)
-      <span v-tooltip="'10 / 15 / 20 / 30 / 40 / 50 / 60 のいずれかを入力してください'" class='info'>ℹ️</span>
-    </div>
-    <input
-      type='text'
-      :value='ampere'
-      @input='event => ampere = event.target.value'>
-  </label>
+  <div>
+    <label>
+      <div>
+        契約アンペア数(A)
+      </div>
+      <select
+        :value='ampere'
+        @input='event => ampere = event.target.value'>
+        <option v-for="option in ampereOptions" :key="option" :value="option">
+          {{ option }}
+        </option>
+      </select>
+    </label>
+  </div>
 
-  <label>
-    <div>
-      1ヶ月の使用量(kWh)
-      <span v-tooltip="'0以上の整数を入力してください'" class='info'>ℹ️</span>
-    </div>
-    <input
-      type='text'
-      :value='usage'
-      @input='event => usage = event.target.value'>
-  </label>
+  <div style='margin-top: 10px;'>
+    <label>
+      <div>
+        1ヶ月の使用量(kWh)
+        <span v-tooltip="'0以上の整数を入力してください'" class='info'>ℹ️</span>
+      </div>
+      <input
+        type='text'
+        :value='usage'
+        @input='event => usage = event.target.value'>
+    </label>
+  </div>
 
   <div class='button'>
-    <button @click='fetchData'>計算する</button>
+    <button @click='fetchData'>この条件で電力会社を比較</button>
   </div>
 
   <table v-if='electricityPrices.length' class="price-table">
@@ -65,14 +78,16 @@ const fetchData = async () => {
       <tr>
         <th>電力会社</th>
         <th>プラン名</th>
-        <th>料金 (円)</th>
+        <th>料金</th>
+        <th>最安</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for='electricityPrice in electricityPrices'>
-        <td>{{ electricityPrice.provider_name }}</td>
-        <td>{{ electricityPrice.plan_name }}</td>
-        <td>{{ electricityPrice.price }}</td>
+      <tr v-for="(plan, index) in electricityPrices" :key="index">
+        <td>{{ plan.provider_name }}</td>
+        <td>{{ plan.plan_name }}</td>
+        <td>{{ plan.price }} 円</td>
+        <td>{{ plan.isCheapest ? '✅' : '' }}</td>
       </tr>
     </tbody>
   </table>
@@ -81,6 +96,12 @@ const fetchData = async () => {
 </template>
 
 <style scoped>
+input {
+  width: 200px;
+}
+select {
+  width: 210px;
+}
 .info {
   cursor: pointer;
 }
