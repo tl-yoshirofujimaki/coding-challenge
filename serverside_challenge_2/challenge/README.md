@@ -1,6 +1,6 @@
 # 概要
 
-このアプリケーションは、指定した契約アンペア数および使用量に基づき、各電力プランの料金を計算を実行します
+このアプリケーションは、指定した契約アンペア数および使用量に基づき、各電力プランの料金比較を行います
 
 # バージョン情報
 
@@ -11,33 +11,76 @@
   - vue `3.5.13`
   - vite `6.2.0`
 
-# 環境構築手順
+# ファイル構成
+
+```
+.
+├── docker-compose.override.yml # 開発環境の時に上書きで利用するDocker設定
+├── docker-compose.yml          # 開発・本番環境のサービス定義とコンテナ設定
+├── backend
+│   └── Dockerfile              # バックエンド (Rails) アプリケーションのDockerfile
+└── frontend
+    ├── Dockerfile              # フロントエンド (Vue.js) アプリケーションの本番用Dockerfile
+    └── Dockerfile.dev          # フロントエンド (Vue.js) アプリケーションの開発用Dockerfile
+```
+
+**※ バックエンド（Rails）のDockerfileは本番・開発用共通です**
+
+# ローカル環境構築手順
 
 1. Dockerコンテナを起動
 
-```
+```bash
 docker compose up --build
 ```
 
 2. データベースを作成
 
-```
+```bash
 docker compose run web rails db:create
 ```
 
 3. マイグレーション実行
 
 
-```
+```bash
 docker compose run web rails db:migrate
 ```
 
 4. シードデータの投入
 
-```
+```bash
 docker compose run web rails db:seed
 ```
 
+# 本番デプロイ手順(aws)
+
+1. Copilotのインストール
+
+以下を参考に環境に合わせて実施  
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/copilot-install.html
+
+2. AWS環境の初期設定
+
+```bash
+aws configure
+```
+
+3. フロントエンドのデプロイ
+
+```bash
+copilot svc deploy --name frontend --env prod
+```
+
+4. バックエンドのデプロイ
+
+```bash
+copilot svc deploy --name web --env prod
+```
+
+**※ `copilot/` ディレクトリが必要ですが、機密情報が含まれるためコミット対象に含めておりません**  
+**そのため、本手順は参考としてご確認していただけたら幸いです。**  
+**どうするのが正解かは分かりませんが、本当の運用であれば機密情報の管理はAWS Systems Manager 等で管理すべきかと思います。**
 
 # アプリケーションへのアクセス
 
@@ -127,7 +170,10 @@ GET /electricity_prices
 
 ### レスポンス
 
-レスポンス形式: JSON
+レスポンス形式: JSON  
+データは ID の昇順で返却されます
+
+---
 
 レスポンス例 (成功時)
 
@@ -156,6 +202,11 @@ GET /electricity_prices
 ```
 
 # テストの実行
+
+## フロントエンド
+未実装
+
+## バックエンド
 
 rspecを導入しており、以下のコマンドでテスト実行できます
 
