@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_11_091629) do
   create_table "electricity_charges_basic_rates", comment: "プラン毎の電気基本料金を格納する", force: :cascade do |t|
     t.bigint "plan_id", null: false
     t.integer "ampere", null: false, comment: "契約アンペア数(A)"
-    t.decimal "basic_rate", null: false, comment: "基本料金(円)"
+    t.decimal "basic_rate", precision: 10, scale: 2, null: false, comment: "基本料金(円)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plan_id", "ampere"], name: "index_electricity_charges_basic_rates_on_plan_id_and_ampere", unique: true
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_11_091629) do
     t.bigint "plan_id", null: false
     t.integer "min_usage", null: false, comment: "電気使用量(kWh)の下限値(境界値を含まない)"
     t.integer "max_usage", comment: "電気使用量(kWh)の上限値(境界値を含む)"
-    t.decimal "unit_rate", null: false, comment: "従量料金単価(円/kWh)"
+    t.decimal "unit_rate", precision: 10, scale: 2, null: false, comment: "従量料金単価(円/kWh)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plan_id"], name: "index_electricity_charges_usage_rates_on_plan_id"

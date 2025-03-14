@@ -19,7 +19,7 @@ class Plan < ApplicationRecord
     usage_price = calc_usage_price(usage)
 
     # 電気料金（基本料金 + 従量料金）を返却
-    basic_price + usage_price
+    (basic_price + usage_price).floor
   end
 
   private
