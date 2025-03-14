@@ -39,7 +39,7 @@ RSpec.describe Plan, type: :model do
         end
       end
 
-      context '使用量が第一段階内の時' do
+      context '使用量が第一段階内の場合' do
         let(:ampere) { 20 }
         let(:usage) { 100 }
 
@@ -50,7 +50,7 @@ RSpec.describe Plan, type: :model do
         end
       end
 
-      context '使用量が第一段階上限の時' do
+      context '使用量が第一段階上限の場合' do
         let(:ampere) { 30 }
         let(:usage) { 120 }
 
@@ -61,7 +61,7 @@ RSpec.describe Plan, type: :model do
         end
       end
 
-      context '使用量が第二段階内の時' do
+      context '使用量が第二段階内の場合' do
         let(:ampere) { 30 }
         let(:usage) { 201 }
 
@@ -75,7 +75,7 @@ RSpec.describe Plan, type: :model do
         end
       end
 
-      context '使用量が上限の無い（max_usage: nil）レート内の時' do
+      context '使用量が上限の無い（max_usage: nil）レート内の場合' do
         let(:ampere) { 30 }
         let(:usage) { 352 }
 
